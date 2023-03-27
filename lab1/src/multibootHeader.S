@@ -5,7 +5,7 @@ FLAGS = 0                       # 无其他功能需要, flags 为 0
 CHECKSUM = -(MAGIC + FLAGS)     # magic + checksum + flags 的结果必须是 32 位无符号整数的 0
 
 .section ".multiboot_header_brealid"
-    .align 4
+    .align 4                    # 按每 4 个字节对齐
     .long MAGIC
     .long FLAGS
     .long CHECKSUM
@@ -13,7 +13,7 @@ CHECKSUM = -(MAGIC + FLAGS)     # magic + checksum + flags 的结果必须是 32
 .text
 .code32
 start:
-    # part below are generated with python
+    # VGA 输出
     movl $0x096f093c, 0xb8000
     movl $0x096c0973, 0xb8004
     movl $0x09620961, 0xb8008
@@ -33,12 +33,13 @@ start:
     movl $0x096f0961, 0xb8040
     movl $0x09690979, 0xb8044
 
-    movw $0x3F8, %dx # set up output port
+    # 串口输出
+    movw $0x3F8, %dx    # set up output port
 
-    movb $0x7a, %al
+    movb $0x7a, %al     # char:z
     outb %al, %dx
-    movb $0x79, %al
+    movb $0x79, %al     # char:y
     outb %al, %dx
-    movb $0x0a, %al
+    movb $0x0a, %al     # char:\n
     outb %al, %dx
-    hlt
+    hlt                 # 结束

@@ -5,7 +5,7 @@ ENTRY(start)
 SECTIONS {
     . = 1M;
     .text : {
-        *(.multiboot_header)
+        *(.multiboot_header_brealid)
         . = ALIGN(8);
         *(.text)
     }
