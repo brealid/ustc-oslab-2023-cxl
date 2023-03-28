@@ -66,7 +66,7 @@ qemu-system-i386 -kernel multibootHeader.bin -serial stdio
 - ``-serial stdio`` 指定串行终端为标准输入输出
 
 ## 六、实验结果
-![](doc/fig_run.jpg)
+![](fig_run.jpg)
 
 ## 七、遇到的问题和解决方法
 1. 安装完 ``qemu`` 之后, ``qemu-system-i386`` 无法运行。需要使用 ``apt install qemu-system-i386`` 以安装特定版本的 ``qemu``  
