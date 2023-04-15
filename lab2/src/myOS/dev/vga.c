@@ -16,7 +16,7 @@ extern void outb(uint16 port_to, uint8 value);
 extern uint8 inb(uint16 port_from);
 
 // 调试用
-extern void uart_put_char(char c);
+extern void uart_put_char(uint8 c);
 extern void uart_put_chars(char *str);
 
 //VGA字符界面规格：25行80列
@@ -48,8 +48,10 @@ void get_cursor_position(void){
 // 清屏
 void clear_screen(void) {
 	for (int i = 0; i < VGA_HEIGHT; ++i)
-		for (int j = 0; j < VGA_WIDTH * 2; ++j)
-			vga_screen[i * VGA_WIDTH * 2 + j] = 0;
+		for (int j = 0; j < VGA_WIDTH * 2; j += 2) {
+			vga_screen[i * VGA_WIDTH * 2 + j] = 0x00;
+			vga_screen[i * VGA_WIDTH * 2 + j + 1] = 0x07;
+		}
 	cur_column = cur_line = 0;
 	update_cursor();
 }
@@ -58,10 +60,12 @@ void clear_screen(void) {
 void scroll_up() {
 	uart_put_chars("[+] scroll_up called\n");
 	for (int i = 1; i < VGA_HEIGHT; ++i)
-		for (int j = 0; j < VGA_WIDTH; ++j)
+		for (int j = 0; j < VGA_WIDTH * 2; ++j)
 			vga_screen[(i - 1) * VGA_WIDTH * 2 + j] = vga_screen[i * VGA_WIDTH * 2 + j];
-	for (int i = 0; i < VGA_WIDTH; ++i)
-		vga_screen[(VGA_HEIGHT - 1) * VGA_WIDTH * 2 + i] = '\0';
+	for (int i = 0; i < VGA_WIDTH * 2; i += 2) {
+		vga_screen[(VGA_HEIGHT - 1) * VGA_WIDTH * 2 + i] = 0x00;
+		vga_screen[(VGA_HEIGHT - 1) * VGA_WIDTH * 2 + i + 1] = 0x07;
+	}
     cur_line = 24;
 }
 
@@ -88,6 +92,7 @@ void color_putchar(uint8 ch, uint8 color) {
 	}
 	if (cur_line == VGA_HEIGHT) scroll_up();
     update_cursor();
+	// 以下：串口输出调试信息
 	uart_put_chars("[+] putchar: {");
 	switch (ch) {
 		case '\r': uart_put_char('\\'); uart_put_char('r'); break;
