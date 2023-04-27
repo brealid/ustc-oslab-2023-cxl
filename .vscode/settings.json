@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "io.h": "c",
+        "wallclock.h": "c",
+        "i8253.h": "c",
+        "vga.h": "c",
+        "tick.h": "c",
+        "i8259a.h": "c",
+        "myprintk.h": "c",
+        "stdarg.h": "c",
+        "vsprintf.h": "c"
+    }
+}
