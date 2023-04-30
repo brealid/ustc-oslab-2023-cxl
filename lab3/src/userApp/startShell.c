@@ -86,6 +86,13 @@ int func_help(int argc, char (*argv)[PART_LENGTH]) {
 
 int func_whoami(int argc, char (*argv)[PART_LENGTH]) {
     myPrintk(0x07, "brealid\n");
+    int a = 3/0;
+    return 1;
+}
+
+int func_div0(int argc, char (*argv)[PART_LENGTH]) {
+    myPrintk(0x07, "test: div0 interrupt\n");
+    int a = 3 / 0;
     return 1;
 }
 
@@ -117,6 +124,7 @@ void startShell(void)
     registerCommand("cmd", "Usage: cmd\n\nList all command\n", func_cmd);
     registerCommand("help", "Usage: help [command]\n\nDisplay info about [command]\n", func_help);
     registerCommand("whoami", "Usage: whoami\n\nPrint the user name associated with the current effective user ID.\n", func_whoami);
+    registerCommand("div0", "Usage: div0\n\n(Test only) Throw a divide0 interrupt\n", func_div0);
     registerCommand("echo", "Usage: echo [arg ...]\n\nWrite arguments to the standard output.\n", func_echo);
     registerCommand("time", "Usage: time\n   or: time [h] [m] [s]\n\nQuery current time.\nOr change current time according to command arguments\n", func_time);
     // 我们通过串口来实现数据的输入
