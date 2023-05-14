@@ -8,6 +8,9 @@
         "i8259a.h": "c",
         "myprintk.h": "c",
         "stdarg.h": "c",
-        "vsprintf.h": "c"
+        "vsprintf.h": "c",
+        "typeinfo": "c",
+        "uart.h": "c",
+        "cstdlib": "c"
     }
 }

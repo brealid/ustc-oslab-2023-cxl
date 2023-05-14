@@ -86,7 +86,6 @@ int func_help(int argc, char (*argv)[PART_LENGTH]) {
 
 int func_whoami(int argc, char (*argv)[PART_LENGTH]) {
     myPrintk(0x07, "brealid\n");
-    int a = 3/0;
     return 1;
 }
 
