@@ -45,14 +45,14 @@ eFPartition：同样需要找到前后的空闲 EEB 块。与 dPartition 简化�
 
 然后描述 malloc/free 接口的调用过程
 
-malloc:（kmalloc 同理，除了第一步中改用 kMemHandler 句柄）
-1. ``malloc``: 调用 ``dPartitionAlloc(uMemHandler, size)``（使用 dPartition 管理空间，空间管理句柄为 uMemHandler）
-2. ``dPartitionAlloc``: 调用 ``dPartitionAllocFirstFit(dp, size)``（使用 first fit 分配算法申请空间）
+malloc:（kmalloc 同理，除了第一步中改用 kMemHandler 句柄）  
+1. ``malloc``: 调用 ``dPartitionAlloc(uMemHandler, size)``（使用 dPartition 管理空间，空间管理句柄为 uMemHandler）  
+2. ``dPartitionAlloc``: 调用 ``dPartitionAllocFirstFit(dp, size)``（使用 first fit 分配算法申请空间）  
 
 
-free:（kfree 同理，除了第一步中改用 kMemHandler 句柄）
-1. ``free``: 调用 ``dPartitionFree(uMemHandler, start)``（使用 dPartition 管理空间，空间管理句柄为 uMemHandler）
-2. ``dPartitionFree``: 调用 ``dPartitionFreeFirstFit(dp, start)``（first fit 分配算法对应的回收空间函数）
+free:（kfree 同理，除了第一步中改用 kMemHandler 句柄）  
+1. ``free``: 调用 ``dPartitionFree(uMemHandler, start)``（使用 dPartition 管理空间，空间管理句柄为 uMemHandler）  
+2. ``dPartitionFree``: 调用 ``dPartitionFreeFirstFit(dp, start)``（first fit 分配算法对应的回收空间函数）  
 
 ### 2. 运行结果
 基础指令 cmd 列出所有可执行命令，clear 命令清屏  
@@ -62,19 +62,19 @@ free:（kfree 同理，除了第一步中改用 kMemHandler 句柄）
 
 先后运行：maxMallocSizeNow，testMalloc1，testMalloc2，maxMallocSizeNow  
 可以发现空间正常申请释放赋值。  
-且可以由 testMalloc2 的运行结果（申请的地址）发现 testMalloc1 申请的空间有被正常释放。这一点也可以从两次 maxMallocSizeNow 中看出  
+且可以由 testMalloc2 的运行结果（申请的地址）发现 testMalloc1 申请的空间有被正常释放。这一点也可以从两次 maxMallocSizeNow 中看出   
 ![](run_result_2.png)
 
 ---
 
 运行 testdP1，运行结果符合预期  
-注意到，虽然申请了 0x100 大小的空间，但是由于 dPartition 占据了一定的空间，因此仅有 0xf8 大小的空间可用，故 malloc(0x100) 失败，这是符合预期的
+注意到，虽然申请了 0x100 大小的空间，但是由于 dPartition 占据了一定的空间，因此仅有 0xf8 大小的空间可用，故 malloc(0x100) 失败，这是符合预期的  
 ![](run_result_3.png)
 
 ---
 
-testdP2 的输出长度比较长，查看不到的部分选择在串口中查看    
-testdP2 的过程正如输出所描绘，以这样的形式展现：  
+testdP2 的输出长度比较长，查看不到的部分选择在串口中查看     
+testdP2 的过程正如输出所描绘，以这样的形式展现：   
 ``-`` $\rightarrow$ ``A:-`` $\rightarrow$ ``A:B:-`` $\rightarrow$ ``A:B:C:-`` $\rightarrow$ ``-:B:C:-`` $\rightarrow$ ``-:C:-`` $\rightarrow$ ``-``  
 输出符合这一情况  
 ![](run_result_4.png)
