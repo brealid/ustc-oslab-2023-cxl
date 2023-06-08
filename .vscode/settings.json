@@ -11,6 +11,7 @@
         "vsprintf.h": "c",
         "typeinfo": "c",
         "uart.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "task.h": "c"
     }
 }
