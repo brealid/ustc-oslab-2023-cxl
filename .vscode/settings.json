@@ -12,6 +12,12 @@
         "typeinfo": "c",
         "uart.h": "c",
         "cstdlib": "c",
-        "task.h": "c"
+        "task.h": "c",
+        "userapp.h": "c",
+        "userinterface.h": "c",
+        "shell.h": "c",
+        "memtestcase.h": "c",
+        "mem.h": "c",
+        "malloc.h": "c"
     }
 }
