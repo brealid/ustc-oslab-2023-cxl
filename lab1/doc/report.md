@@ -1,5 +1,4 @@
 # Lab1 实验报告
-PB21000033 赵奕
 
 ## 一、实验目标
 - 以 multiboot 为启动协议，qemu 作为 bootloader 启动一个小型 os 内核
